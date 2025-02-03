@@ -9,6 +9,9 @@ import {
   useSensor,
   useSensors,
   DragOverlay,
+  DragStartEvent,
+  DragOverEvent,
+  DragEndEvent,
 } from '@dnd-kit/core';
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, useSortable } from '@dnd-kit/sortable';
 import { Pill } from '@/app/page';
@@ -71,17 +74,17 @@ const DndPills = ({ pills }: Props) => {
     })
   );
 
-  const handleDragStart = (event: any) => {
-    setActiveId(event.active.id);
+  const handleDragStart = (event: DragStartEvent) => {
+    setActiveId(event.active.id as number);
   };
 
-  const handleDragOver = (event: any) => {
+  const handleDragOver = (event: DragOverEvent) => {
     if (!event.over) {
       setOverIndex(null);
       return;
     }
 
-    const overIndex = items.findIndex(item => item.id === event.over.id);
+    const overIndex = items.findIndex(item => item.id === event.over?.id);
     const activeIndex = items.findIndex(item => item.id === event.active.id);
 
     // If dragging before the target, show indicator after the target
@@ -93,13 +96,13 @@ const DndPills = ({ pills }: Props) => {
     }
   };
 
-  const handleDragEnd = (event: any) => {
+  const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
 
     if (active.id !== over?.id) {
       setItems(items => {
         const oldIndex = items.findIndex(item => item.id === active.id);
-        const newIndex = items.findIndex(item => item.id === over.id);
+        const newIndex = items.findIndex(item => item.id === over?.id);
         return arrayMove(items, oldIndex, newIndex);
       });
     }
