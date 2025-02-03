@@ -1,4 +1,5 @@
 import DraggableReactOnly from '@/components/DraggableReactOnly';
+import DndPills from '@/components/DndPills';
 
 export type Pill = {
   id: number;
@@ -23,9 +24,16 @@ export default function Home() {
   return (
     <main className="flex flex-col items-center justify-items-center min-h-screen p-8 gap-12 font-[family-name:var(--font-geist-sans)]">
       <div className="flex flex-col items-center justify-items-center gap-2">
-        <h1 className="text-2xl font-medium">Draggable React Only</h1>
-        <div className="mt-4 text-sm text-gray-600">Only uses React and the native HTML5 drag and drop API.</div>
+        <h1 className="text-2xl font-medium">HTML5 Drag and Drop</h1>
+        <div className="mt-4 text-sm text-gray-600">Uses the native HTML5 drag and drop API.</div>
         <DraggableReactOnly pills={PILLS} />
+      </div>
+      <div className="flex flex-col items-center justify-items-center gap-2">
+        <h1 className="text-2xl font-medium">dnd-kit/core and dnd-kit/sortable</h1>
+        <div className="mt-4 text-sm text-gray-600">
+          Uses dnd-kit/core and dnd-kit/sortable using a line indicator for drop position.
+        </div>
+        <DndPills pills={PILLS} />
       </div>
     </main>
   );
