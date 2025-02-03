@@ -15,7 +15,7 @@ interface Props {
   pills: Pill[];
 }
 
-const DraggableReactOnly = ({ pills }: Props) => {
+const ReactPills = ({ pills }: Props) => {
   const [items, setItems] = useState<Item[]>(pills);
 
   const [draggedItem, setDraggedItem] = useState<Item | null>(null);
@@ -81,4 +81,4 @@ const DraggableReactOnly = ({ pills }: Props) => {
   );
 };
 
-export default DraggableReactOnly;
+export default ReactPills;

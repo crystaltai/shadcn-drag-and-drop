@@ -1,4 +1,4 @@
-import DraggableReactOnly from '@/components/DraggableReactOnly';
+import ReactPills from '@/components/ReactPills';
 import DndPills from '@/components/DndPills';
 
 export type Pill = {
@@ -26,7 +26,7 @@ export default function Home() {
       <div className="flex flex-col items-center justify-items-center gap-2">
         <h1 className="text-2xl font-medium">HTML5 Drag and Drop</h1>
         <div className="mt-4 text-sm text-gray-600">Uses the native HTML5 drag and drop API.</div>
-        <DraggableReactOnly pills={PILLS} />
+        <ReactPills pills={PILLS} />
       </div>
       <div className="flex flex-col items-center justify-items-center gap-2">
         <h1 className="text-2xl font-medium">dnd-kit/core and dnd-kit/sortable</h1>
