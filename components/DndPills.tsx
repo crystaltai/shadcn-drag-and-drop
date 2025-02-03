@@ -46,7 +46,6 @@ const SortablePill = ({ item }: { item: Pill }) => {
         justify-center
         transition-colors
         whitespace-nowrap
-        !ring-0
         ${isMounted && isDragging ? 'opacity-50' : ''}
       `}
       {...(isMounted ? attributes : {})}
@@ -154,7 +153,7 @@ const DndPills = ({ pills }: Props) => {
         <DragOverlay>
           <Badge
             style={{ width: items.find(item => item.id === activeId)?.width }}
-            className="px-2 py-1 rounded-md text-white cursor-grab flex items-center justify-center transition-colors whitespace-nowrap !ring-0"
+            className="px-2 py-1 rounded-md text-white cursor-grab flex items-center justify-center transition-colors whitespace-nowrap"
           >
             {items.find(item => item.id === activeId)?.text}
           </Badge>
