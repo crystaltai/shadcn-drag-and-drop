@@ -12,16 +12,16 @@ export type Pill = {
 
 export default function Home() {
   const PILLS: Pill[] = [
-    { id: 1, text: '1. Short', width: 80 },
-    { id: 2, text: '2. Medium Length', width: 120 },
-    { id: 3, text: '3. Very Long Content Here', width: 180 },
-    { id: 4, text: '4. Brief', width: 70 },
-    { id: 5, text: '5. Another Long Pill Here', width: 170 },
-    { id: 6, text: '6. Quick', width: 65 },
-    { id: 7, text: '7. Extended Content Pill', width: 160 },
-    { id: 8, text: '8. Tiny', width: 60 },
-    { id: 9, text: '9. Substantial Length Text', width: 175 },
-    { id: 10, text: '10. Last One', width: 90 },
+    { id: 1, text: '1. Short Pill', width: 90 },
+    { id: 2, text: '2. Medium Length Pill', width: 150 },
+    { id: 3, text: '3. Very Long Content Pill', width: 170 },
+    { id: 4, text: '4. Brief Pill', width: 90 },
+    { id: 5, text: '5. Another Long Pill Pill', width: 150 },
+    { id: 6, text: '6. Quick Pill', width: 90 },
+    { id: 7, text: '7. Extended Content Pill', width: 170 },
+    { id: 8, text: '8. Tiny Pill', width: 80 },
+    { id: 9, text: '9. Substantial Length Text Pill', width: 195 },
+    { id: 10, text: '10. Last One Pill', width: 110 },
   ];
 
   return (
