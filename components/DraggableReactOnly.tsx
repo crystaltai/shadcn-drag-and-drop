@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
+import DraggableSpace from '@/components/DraggableSpace';
 import { Pill } from '@/app/page';
 
 type Item = {
@@ -22,9 +23,6 @@ const DraggableReactOnly = ({ pills }: Props) => {
 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>, item: Item) => {
     setDraggedItem(item);
-    // Set the drag image to be the entire pill element
-    const pill = e.target as HTMLDivElement;
-    e.dataTransfer.setDragImage(pill, pill.offsetWidth / 2, pill.offsetHeight / 2);
   };
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>, item: Item) => {
@@ -53,20 +51,16 @@ const DraggableReactOnly = ({ pills }: Props) => {
   };
 
   return (
-    <div>
-      <div
-        className="flex flex-wrap items-start gap-2 p-4 bg-gray-100 rounded-lg max-w-[800px] min-h-32"
-        style={{ alignContent: 'flex-start' }}
-      >
-        {items.map(item => (
-          <Badge
-            key={item.id}
-            draggable
-            onDragStart={e => handleDragStart(e, item)}
-            onDragOver={e => handleDragOver(e, item)}
-            onDrop={handleDrop}
-            style={{ width: item.width }}
-            className={`
+    <DraggableSpace>
+      {items.map(item => (
+        <Badge
+          key={item.id}
+          draggable
+          onDragStart={e => handleDragStart(e, item)}
+          onDragOver={e => handleDragOver(e, item)}
+          onDrop={handleDrop}
+          style={{ width: item.width }}
+          className={`
               px-2 py-1
               rounded-md
               text-white 
@@ -79,12 +73,11 @@ const DraggableReactOnly = ({ pills }: Props) => {
               ${draggedOverItem?.id === item.id ? 'bg-gray-600' : ''}
               ${draggedItem?.id === item.id ? 'opacity-50' : ''}
             `}
-          >
-            {item.text}
-          </Badge>
-        ))}
-      </div>
-    </div>
+        >
+          {item.text}
+        </Badge>
+      ))}
+    </DraggableSpace>
   );
 };
 
