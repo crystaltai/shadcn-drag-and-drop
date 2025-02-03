@@ -24,7 +24,7 @@ interface Props {
 
 const DropLineIndicator = () => <div className="w-0.5 h-6 bg-gray-500 mx-1" />;
 
-const SortablePill = ({ item }: { item: Pill }) => {
+const SortablePill = ({ item }: { item: Pill & { calculatedWidth: number } }) => {
   const [isMounted, setIsMounted] = useState(false);
   const { attributes, listeners, setNodeRef, isDragging } = useSortable({ id: item.id });
 
@@ -35,7 +35,7 @@ const SortablePill = ({ item }: { item: Pill }) => {
   return (
     <Badge
       ref={setNodeRef}
-      style={{ width: item.width }}
+      style={{ width: item.calculatedWidth }}
       className={`
         px-2 py-1
         rounded-md
@@ -58,13 +58,43 @@ const SortablePill = ({ item }: { item: Pill }) => {
 
 const DndPills = ({ pills }: Props) => {
   const [isMounted, setIsMounted] = useState(false);
-  const [items, setItems] = useState(pills);
+  const [items, setItems] = useState<(Pill & { calculatedWidth: number })[]>([]);
   const [activeId, setActiveId] = useState<number | null>(null);
   const [overIndex, setOverIndex] = useState<number | null>(null);
 
   useEffect(() => {
     setIsMounted(true);
-  }, []);
+
+    // Calculate widths for all pills at once
+    const measureTextWidth = (text: string): number => {
+      // Create a hidden span to measure the actual rendered text
+      const span = document.createElement('span');
+      span.style.cssText = `
+        position: absolute;
+        visibility: hidden;
+        white-space: nowrap;
+        font-family: var(--font-geist-sans);
+        font-size: 14px;
+      `;
+      span.textContent = text;
+
+      document.body.appendChild(span);
+      const width = span.getBoundingClientRect().width;
+      document.body.removeChild(span);
+
+      // Add padding for the Badge
+      const padding = 16;
+      return Math.ceil(width + padding);
+    };
+
+    // Map original pills to include calculated width
+    const itemsWithWidth = pills.map(pill => ({
+      ...pill,
+      calculatedWidth: measureTextWidth(pill.text),
+    }));
+
+    setItems(itemsWithWidth);
+  }, [pills]);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -117,7 +147,7 @@ const DndPills = ({ pills }: Props) => {
         {items.map(item => (
           <Badge
             key={item.id}
-            style={{ width: item.width }}
+            style={{ width: item.calculatedWidth }}
             className="px-2 py-1 rounded-md text-white cursor-grab flex items-center justify-center transition-colors whitespace-nowrap"
           >
             {item.text}
@@ -152,7 +182,7 @@ const DndPills = ({ pills }: Props) => {
       {isMounted && activeId && (
         <DragOverlay>
           <Badge
-            style={{ width: items.find(item => item.id === activeId)?.width }}
+            style={{ width: items.find(item => item.id === activeId)?.calculatedWidth }}
             className="px-2 py-1 rounded-md text-white cursor-grab flex items-center justify-center transition-colors whitespace-nowrap"
           >
             {items.find(item => item.id === activeId)?.text}
