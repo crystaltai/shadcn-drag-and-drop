@@ -5,27 +5,21 @@ import { Badge } from '@/components/ui/badge';
 import DraggableSpace from '@/components/DraggableSpace';
 import { Pill } from '@/app/page';
 
-type Item = {
-  id: number;
-  text: string;
-  width: number;
-};
-
 interface Props {
   pills: Pill[];
 }
 
 const ReactPills = ({ pills }: Props) => {
-  const [items, setItems] = useState<Item[]>(pills);
+  const [items, setItems] = useState<Pill[]>(pills);
 
-  const [draggedItem, setDraggedItem] = useState<Item | null>(null);
-  const [draggedOverItem, setDraggedOverItem] = useState<Item | null>(null);
+  const [draggedItem, setDraggedItem] = useState<Pill | null>(null);
+  const [draggedOverItem, setDraggedOverItem] = useState<Pill | null>(null);
 
-  const handleDragStart = (e: React.DragEvent<HTMLDivElement>, item: Item) => {
+  const handleDragStart = (e: React.DragEvent<HTMLDivElement>, item: Pill) => {
     setDraggedItem(item);
   };
 
-  const handleDragOver = (e: React.DragEvent<HTMLDivElement>, item: Item) => {
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>, item: Pill) => {
     e.preventDefault();
     setDraggedOverItem(item);
   };
