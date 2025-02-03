@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import {
   DndContext,
-  closestCenter,
   pointerWithin,
   KeyboardSensor,
   PointerSensor,
